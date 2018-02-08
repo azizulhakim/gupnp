@@ -303,6 +303,8 @@ finalize_action (GUPnPServiceAction *action)
 
         soup_message_headers_append (action->msg->response_headers, "Ext", "");
 
+	g_print("%s\n",action->response_str->str);
+
         /* Server header on response */
         soup_message_headers_append
                         (action->msg->response_headers,
@@ -397,6 +399,7 @@ gupnp_service_action_get_valist (GUPnPServiceAction *action,
 
         arg_name = va_arg (var_args, const char *);
         while (arg_name) {
+		printf("get arg_name = %s\n", arg_name);
                 arg_type = va_arg (var_args, GType);
                 g_value_init (&value, arg_type);
 
@@ -589,6 +592,7 @@ gupnp_service_action_set_valist (GUPnPServiceAction *action,
 
         arg_name = va_arg (var_args, const char *);
         while (arg_name) {
+		printf("arg_name = %s\n", arg_name);
                 arg_type = va_arg (var_args, GType);
                 g_value_init (&value, arg_type);
 

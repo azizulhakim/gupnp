@@ -39,12 +39,12 @@
   <serviceStateTable>
     <stateVariable sendEvents="no">
       <name>Target</name>
-      <dataType>boolean</dataType>
+      <dataType>string</dataType>
       <defaultValue>0</defaultValue>
     </stateVariable>
     <stateVariable sendEvents="yes">
       <name>Status</name>
-      <dataType>boolean</dataType>
+      <dataType>string</dataType>
       <defaultValue>0</defaultValue>
     </stateVariable>
   </serviceStateTable>

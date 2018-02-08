@@ -33,65 +33,78 @@ gvalue_util_set_value_from_string (GValue     *value,
         GValue tmp_value = {0, };
         int i;
 
+	printf("gvalue_util_set_value_from_string str = %s\n", str);
         g_return_val_if_fail (str != NULL, FALSE);
 
+	printf("before conversion from GValue = %s\n", g_value_get_string(value));
         switch (G_VALUE_TYPE (value)) {
         case G_TYPE_STRING:
+		printf("string type\n");
                 g_value_set_string (value, str);
-
                 break;
 
         case G_TYPE_CHAR:
+		printf("char type\n");
                 g_value_set_schar (value, *str);
 
                 break;
 
         case G_TYPE_UCHAR:
+		printf("uchar type\n");
                 g_value_set_uchar (value, *str);
 
                 break;
 
         case G_TYPE_INT:
+		printf("int type\n");
                 g_value_set_int (value, strtol (str, NULL, 10));
 
                 break;
 
         case G_TYPE_UINT:
+		printf("uint type\n");
                 g_value_set_uint (value, strtoul (str, NULL, 10));
 
                 break;
 
         case G_TYPE_INT64:
+		printf("int64 type\n");
                 g_value_set_int64 (value, g_ascii_strtoll (str, NULL, 10));
 
                 break;
 
         case G_TYPE_UINT64:
+		printf("uint64 type\n");
                 g_value_set_uint64 (value, g_ascii_strtoull (str, NULL, 10));
 
                 break;
 
         case G_TYPE_LONG:
+		printf("long type\n");
                 g_value_set_long (value, strtol (str, NULL, 10));
 
                 break;
 
         case G_TYPE_ULONG:
+		printf("ulong type\n");
                 g_value_set_ulong (value, strtoul (str, NULL, 10));
 
                 break;
 
         case G_TYPE_FLOAT:
+		printf("float type\n");
                 g_value_set_float (value, g_ascii_strtod (str, NULL));
 
                 break;
 
         case G_TYPE_DOUBLE:
+		printf("double type\n");
                 g_value_set_double (value, g_ascii_strtod (str, NULL));
 
                 break;
 
         case G_TYPE_BOOLEAN:
+		printf("boolean type\n");
                 if (g_ascii_strcasecmp (str, "true") == 0 ||
                     g_ascii_strcasecmp (str, "yes") == 0)
                         g_value_set_boolean (value, TRUE);
@@ -106,6 +119,7 @@ gvalue_util_set_value_from_string (GValue     *value,
                 break;
 
         default:
+		printf("default type\n");
                 /* Try to convert */
                 if (g_value_type_transformable (G_TYPE_STRING,
                                                 G_VALUE_TYPE (value))) {
@@ -137,6 +151,7 @@ gvalue_util_set_value_from_string (GValue     *value,
 
                 break;
         }
+	printf("after conversion from GValue = %s\n", g_value_get_string(value));
 
         return TRUE;
 }
