@@ -911,13 +911,22 @@ GUPnPServiceInfo *insightserviceService;
 GUPnPServiceInfo *smartsetupService;
 GUPnPServiceInfo *manufactureService;
 
+printf("%d\n", argc);
+if (argc != 3) {
+  printf("Usage: ./light-server INTERFACE PORT\n");
+  exit(1);
+}
+
+char* interfacename = argv[1];
+int port = atoi(argv[2]);
+
 setlocale(LC_ALL, "en_US.utf8");
 
 GString *gs = g_string_new("abc");
 g_print("%s\n", gs->str);
 
 
-  
+
   optionContext = g_option_context_new (NULL);
   g_option_context_add_main_entries (optionContext, entries, NULL);
   if (!g_option_context_parse (optionContext, &argc, &argv, &error))
@@ -934,7 +943,7 @@ g_print("%s\n", gs->str);
   }
 
   /* Create the UPnP context */
-  context = gupnp_context_new (NULL, 0, &error);
+  context = gupnp_context_new (interfacename, port, &error);
   if (error) {
     g_printerr ("Error creating the GUPnP context: %s\n",
 		error->message);
@@ -1059,7 +1068,7 @@ g_signal_connect(GUPNP_SERVICE(smartsetupService), "action-invoked::PairAndRegis
 g_signal_connect(GUPNP_SERVICE(smartsetupService), "action-invoked::GetRegistrationData", G_CALLBACK(GetRegistrationData_cb), NULL);
 g_signal_connect(GUPNP_SERVICE(smartsetupService), "action-invoked::GetRegistrationStatus", G_CALLBACK(GetRegistrationStatus_cb), NULL);
 g_signal_connect(GUPNP_SERVICE(manufactureService), "action-invoked::GetManufactureData", G_CALLBACK(GetManufactureData_cb), NULL);  //////// Belkin WeMo Switch End ///////////////////////////
-  
+
   /* Run the main loop */
   main_loop = g_main_loop_new (NULL, FALSE);
   g_main_loop_run (main_loop);
@@ -1068,6 +1077,6 @@ g_signal_connect(GUPNP_SERVICE(manufactureService), "action-invoked::GetManufact
   g_main_loop_unref (main_loop);
 //  g_object_unref (service);
   g_object_unref (context);
-  
+
   return EXIT_SUCCESS;
 }
